@@ -5,45 +5,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="customers")
-public class Customer {
-
+@Table(name = "Customer")
+public class Customer{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int customerId;
 
-    private String mobNo;
+    String mobile;
 
-    private String password;
+    String password;
 
+    //For Mapping
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<TripBooking> bookingList = new ArrayList<>();
+    List<TripBooking> tripBookingList = new ArrayList<>();
 
     public Customer() {
     }
 
-    public List<TripBooking> getBookingList() {
-        return bookingList;
+    public Customer(int customerId, String mobile, String password, List<TripBooking> tripBookingList) {
+        this.customerId = customerId;
+        this.mobile = mobile;
+        this.password = password;
+        this.tripBookingList = tripBookingList;
     }
 
-    public void setBookingList(List<TripBooking> bookingList) {
-        this.bookingList = bookingList;
+    public int getCustomerId() {
+        return customerId;
     }
 
-    public int getId() {
-        return id;
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public String getMobile() {
+        return mobile;
     }
 
-    public String getMobNo() {
-        return mobNo;
-    }
-
-    public void setMobNo(String mobNo) {
-        this.mobNo = mobNo;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getPassword() {
@@ -52,5 +51,13 @@ public class Customer {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<TripBooking> getTripBookingList() {
+        return tripBookingList;
+    }
+
+    public void setTripBookingList(List<TripBooking> tripBookingList) {
+        this.tripBookingList = tripBookingList;
     }
 }

@@ -5,61 +5,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="drivers")
-public class Driver {
+@Table(name = "Driver")
+public class Driver{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    int driverId;
 
-    private String mobNo;
+    String mobile;
 
-    private String password;
+    String password;
 
-    @OneToOne
-    @JoinColumn
-    private Cab cab;
-
+    //For mapping to tripBooking(Child)
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
-    private List<TripBooking> bookingList = new ArrayList<>();
+    List<TripBooking> tripBookingList = new ArrayList<>();
+
+    //For mapping to Cab(Parent)
+    @OneToOne(mappedBy = "driver", cascade = CascadeType.ALL)
+    Cab cab;
 
     public Driver() {
+
     }
 
-    public Driver(String mobNo, String password) {
-        this.mobNo = mobNo;
+
+
+    public Driver(int driverId, String mobile, String password, List<TripBooking> tripBookingList, Cab cab) {
+        this.driverId = driverId;
+        this.mobile = mobile;
         this.password = password;
-    }
-
-    public Cab getCab() {
-        return cab;
-    }
-
-    public void setCab(Cab cab) {
+        this.tripBookingList = tripBookingList;
         this.cab = cab;
     }
 
-    public List<TripBooking> getBookingList() {
-        return bookingList;
+    public int getDriverId() {
+        return driverId;
     }
 
-    public void setBookingList(List<TripBooking> bookingList) {
-        this.bookingList = bookingList;
+    public void setDriverId(int driverId) {
+        this.driverId = driverId;
     }
 
-    public int getId() {
-        return id;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getMobNo() {
-        return mobNo;
-    }
-
-    public void setMobNo(String mobNo) {
-        this.mobNo = mobNo;
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getPassword() {
@@ -68,5 +59,21 @@ public class Driver {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<TripBooking> getTripBookingList() {
+        return tripBookingList;
+    }
+
+    public void setTripBookingList(List<TripBooking> tripBookingList) {
+        this.tripBookingList = tripBookingList;
+    }
+
+    public Cab getCab() {
+        return cab;
+    }
+
+    public void setCab(Cab cab) {
+        this.cab = cab;
     }
 }
